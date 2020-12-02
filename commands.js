@@ -13,6 +13,10 @@ module.exports = {
         id2: "facts",
         desc: "Random fact about anything!",
     },
+    today: {
+        id: "today",
+        desc: "Random fact of the day!",
+    },
     wan: {
         id: "wan",
         desc: "Easter egg?!"

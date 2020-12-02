@@ -11,16 +11,35 @@ const BOT_PREFIX = '!'
 const BOT_COMMANDS = list_Commands.commands.id
 const NUM_FACT = list_Commands.num_fact.id
 const FACT = [list_Commands.fact.id,list_Commands.fact.id2]
+const TODAY = list_Commands.today.id
 const WAN = list_Commands.wan.id
 const RAHUL = list_Commands.rahul.id
 
 const FACT_API = 'https://uselessfacts.jsph.pl/random.json?language=en'
+const TODAY_FACT_API = 'https://uselessfacts.jsph.pl/today.json?language=en'
 const N_FACT_API = 'http://numbersapi.com/random/trivia'
 
+var today;
 var facts = [];
 var n_facts = [];
 
 var currentTime = new Date().toLocaleTimeString();
+
+function getToday(){
+    fetch(TODAY_FACT_API).then(
+        function(response){
+            if(response.status !== 200){
+                console.log("There was a problem. Status Code: " + response.status);
+                return;
+            }
+            response.json().then(function(data){
+                today = data.text;
+            })
+        }
+    ).catch(function(err){
+        console.log('error: ', err);
+    })
+}
 
 function getFacts(){
     fetch(FACT_API).then(
@@ -59,6 +78,7 @@ client.on('ready', () => {
     console.log("BOT IS READY!!")
     getFacts();
     getNumFacts();
+    getToday();
 });
 
 client.on('message', msg => {
@@ -67,6 +87,13 @@ client.on('message', msg => {
             msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
         facts.pop();
         getFacts();
+    };
+})
+
+client.on('message', msg => {
+    if(msg.content === `${BOT_PREFIX}${TODAY}`){
+        msg.channel.send("RFOTD: " + today).then(msg => 
+            msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
     };
 })
 
@@ -100,6 +127,7 @@ client.on('message', msg =>{
         Prefix: ${BOT_PREFIX}
         \`${FACT}\` : ${list_Commands.fact.desc}
         \`${NUM_FACT}\` : ${list_Commands.num_fact.desc}
+        \`${TODAY}\` : ${list_Commands.today.desc}
         \`${WAN}\` : ${list_Commands.wan.desc}
         \`${RAHUL}\` : ${list_Commands.rahul.desc}
         `);
