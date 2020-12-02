@@ -1,4 +1,5 @@
 require('dotenv').config();
+const {list_Commands} = require("./commands");
 
 const { time } = require('console');
 const Discord = require('discord.js');
@@ -7,10 +8,11 @@ const cron = require('cron');
 const client = new Discord.Client();
 
 const BOT_PREFIX = '!'
-const BOT_COMMANDS = 'commands'
-const NUM_FACT = 'num'
-const FACT = ['fact','facts']
-const WAN = 'wan'
+const BOT_COMMANDS = list_Commands.commands.id
+const NUM_FACT = list_Commands.num_fact.id
+const FACT = [list_Commands.fact.id,list_Commands.fact.id2]
+const WAN = list_Commands.wan.id
+const RAHUL = list_Commands.rahul.id
 
 const FACT_API = 'https://uselessfacts.jsph.pl/random.json?language=en'
 const N_FACT_API = 'http://numbersapi.com/random/trivia'
@@ -20,8 +22,7 @@ var n_facts = [];
 
 var currentTime = new Date().toLocaleTimeString();
 
-client.on('ready', () => {
-    console.log("BOT IS READY!!")
+function getFacts(){
     fetch(FACT_API).then(
         function(response){
             if(response.status !== 200){
@@ -36,6 +37,9 @@ client.on('ready', () => {
     ).catch(function(err){
         console.log('error: ', err);
     })
+}
+
+function getNumFacts(){
     fetch(N_FACT_API).then(
         function(response){
             if(response.status !== 200){
@@ -49,10 +53,12 @@ client.on('ready', () => {
     ).catch(function(err){
         console.log('error: ', err);
     })
-    if(currentTime == "01:50:00"){
+}
 
-    }
-
+client.on('ready', () => {
+    console.log("BOT IS READY!!")
+    getFacts();
+    getNumFacts();
 });
 
 client.on('message', msg => {
@@ -60,20 +66,7 @@ client.on('message', msg => {
         msg.channel.send("Random Fact: " + facts).then(msg => 
             msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
         facts.pop();
-        fetch(FACT_API).then(
-            function(response){
-                if(response.status !== 200){
-                    console.log("There was a problem. Status Code: " + response.status);
-                    return;
-                }
-                response.json().then(function(data){
-                    let fact = data;
-                    facts.push(fact.text);
-                })
-            }
-        ).catch(function(err){
-            console.log('error: ', err);
-        })
+        getFacts();
     };
 })
 
@@ -82,38 +75,47 @@ client.on('message', msg => {
         msg.channel.send("Number Fact: " + n_facts).then(msg => 
             msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
         n_facts.pop();
-        fetch(N_FACT_API).then(
-            function(response){
-                if(response.status !== 200){
-                    console.log("There was a problem. Status Code: " + response.status);
-                    return;
-                }
-                response.text().then(function(data){
-                    n_facts.push(data);
-                })
-            }
-        ).catch(function(err){
-            console.log('error: ', err);
-        })
+        getNumFacts();
     };
 })
 
 client.on('message', msg =>{
     if(msg.content === `${BOT_PREFIX}${WAN}`){
-        msg.member.send("Wan is gay")
+        msg.member.send("Wan is gay");
+    }
+})
+
+client.on('message', msg =>{
+    if(msg.content == `${BOT_PREFIX}${RAHUL}`){
+        msg.member.send("Rahul is a great guy");
     }
 })
 
 client.on('message', msg =>{
     if(msg.content === `${BOT_PREFIX}${BOT_COMMANDS}`){
-        msg.reply(
-        "\n List of commands : "+
-        "\n"+BOT_PREFIX+NUM_FACT+" : Random facts about numbers"+
-        "\n"+BOT_PREFIX+FACT[1]+" : Random facts about anything"+
-        "\n"+BOT_PREFIX+WAN+" : Easter Egg").then(msg => 
-            msg.delete({timeout: 5000})).then(msg.member.lastMessage.delete({timeout: 5000}));
+        const embed = new Discord.MessageEmbed()
+        .setTitle('Commands')
+        .setColor(0xff0000)
+        .setDescription(`
+        Prefix: ${BOT_PREFIX}
+        \`${FACT}\` : ${list_Commands.fact.desc}
+        \`${NUM_FACT}\` : ${list_Commands.num_fact.desc}
+        \`${WAN}\` : ${list_Commands.wan.desc}
+        \`${RAHUL}\` : ${list_Commands.rahul.desc}
+        `);
+    if(msg.content === `${BOT_PREFIX}${BOT_COMMANDS}` && msg.guild.id==="389172899820470272"){
+        msg.channel.send(embed)
+        .then(msg => 
+          msg.delete({timeout: 5000}))
+          .then(msg.member.lastMessage
+              .delete({timeout: 5000}));
+    }else{
+        msg.channel.send(embed)
+    };
+      
     }
 })
+
 
 client.on('message', msg =>{
     if(msg.content == '!time'){
