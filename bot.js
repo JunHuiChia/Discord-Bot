@@ -108,6 +108,15 @@ client.on('message', msg => {
 })
 
 client.on('message', msg => {
+    if(msg.content === `${BOT_PREFIX}${FACT2[0]}` || msg.content === `${BOT_PREFIX}${FACT2[1]}`){
+        msg.channel.send("Random Fact: " + facts2).then(msg => 
+            msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
+        facts2.pop();
+        getFacts();
+    };
+})
+
+client.on('message', msg => {
     if(msg.content === `${BOT_PREFIX}${TODAY}`){
         msg.channel.send("RFOTD: " + today).then(msg => 
             msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
