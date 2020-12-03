@@ -96,7 +96,6 @@ function getJoke(){
 }
 
 function sortJoke(data){
-    console.log(joke1+"2nd"+joke2);
     if(joke1.length != 0){
         joke1.pop()
         if (joke2.length != 0){
@@ -210,6 +209,7 @@ client.on('message', msg =>{
         \`${TODAY}\` : ${list_Commands.today.desc}
         \`${WAN}\` : ${list_Commands.wan.desc}
         \`${RAHUL}\` : ${list_Commands.rahul.desc}
+        \`${JOKE}\` : ${list_Commands.joke.desc}
         `);
     if(msg.content === `${BOT_PREFIX}${BOT_COMMANDS}` && msg.guild.id==="389172899820470272"){
         msg.channel.send(embed)
