@@ -13,11 +13,13 @@ const NUM_FACT = list_Commands.num_fact.id
 const FACT1 = [list_Commands.fact1.id,list_Commands.fact1.id2]
 const FACT2 = [list_Commands.fact2.id,list_Commands.fact2.id2]
 const TODAY = list_Commands.today.id
+const JOKE = list_Commands.joke.id
 const WAN = list_Commands.wan.id
 const RAHUL = list_Commands.rahul.id
 
 const FACT1_API = 'https://uselessfacts.jsph.pl/random.json?language=en'
 const FACT2_API = 'https://useless-facts.sameerkumar.website/api'
+const JOKE_API = 'https://sv443.net/jokeapi/v2/joke/Any'
 const TODAY_FACT_API = 'https://uselessfacts.jsph.pl/today.json?language=en'
 const N_FACT_API = 'http://numbersapi.com/random/trivia'
 
@@ -25,6 +27,8 @@ var today;
 var facts1 = [];
 var facts2 = [];
 var n_facts = [];
+var joke1 = [];
+var joke2 = [];
 
 var currentTime = new Date().toLocaleTimeString();
 
@@ -73,6 +77,39 @@ function getFacts(){
     ).catch(function(err){
         console.log('error: ', err);
     })
+}
+
+function getJoke(){
+    fetch(JOKE_API).then(
+        function(response){
+            if(response.status !== 200){
+                console.log("There was a problem. Status Code: " + response.status);
+                return;
+            }
+            response.json().then(function(data){
+                sortJoke(data);
+            })
+        }
+    ).catch(function(err){
+        console.log('error: ', err);
+    })
+}
+
+function sortJoke(data){
+    console.log(joke1+"2nd"+joke2);
+    if(joke1.length != 0){
+        joke1.pop()
+        if (joke2.length != 0){
+            joke2.pop();
+        }
+    }
+    if(data.type == "single"){
+        joke1.push(data.joke);
+    }
+    else if(data.type == "twopart"){
+        joke1.push(data.setup)
+        joke2.push(data.delivery)
+    }
 }
 
 function getNumFacts(){
@@ -129,6 +166,21 @@ client.on('message', msg => {
             msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
         n_facts.pop();
         getNumFacts();
+    };
+})
+
+client.on('message', msg => {
+    if(msg.content === `${BOT_PREFIX}${JOKE}`){
+        if(joke2.length == 0){
+            msg.channel.send(joke1).then(msg => 
+                msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
+            getJoke();
+        }else{
+            msg.channel.send(joke1+"\n"+joke2).then(msg => 
+                msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
+            getJoke();
+        }
+        
     };
 })
 

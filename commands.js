@@ -30,6 +30,9 @@ module.exports = {
         id: "rahul",
         desc: "WHATS THIS?"
     },
-
+    joke: {
+        id: "joke",
+        desc: "Ha, A funny joke!",
+    },
 }
 }
