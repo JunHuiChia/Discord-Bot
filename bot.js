@@ -67,7 +67,7 @@ function getFacts(){
             }
             response.json().then(function(data){
                 let fact2 = data;
-                facts2.push(fact2.text);
+                facts2.push(fact2.data);
             })
         }
     ).catch(function(err){
