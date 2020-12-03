@@ -133,6 +133,7 @@ client.on('ready', () => {
     getFacts();
     getNumFacts();
     getToday();
+    getJoke();
 });
 
 client.on('message', msg => {
@@ -176,7 +177,7 @@ client.on('message', msg => {
                 msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
             getJoke();
         }else{
-            msg.channel.send(joke1+"\n"+joke2).then(msg => 
+            msg.channel.send("(1/2)"+joke1+"\n"+"(2/2)"+joke2).then(msg => 
                 msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
             getJoke();
         }
