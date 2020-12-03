@@ -143,6 +143,7 @@ client.on('message', msg =>{
         .setDescription(`
         Prefix: ${BOT_PREFIX}
         \`${FACT1}\` : ${list_Commands.fact1.desc}
+        \`${FACT2}\` : ${list_Commands.fact2.desc}
         \`${NUM_FACT}\` : ${list_Commands.num_fact.desc}
         \`${TODAY}\` : ${list_Commands.today.desc}
         \`${WAN}\` : ${list_Commands.wan.desc}
