@@ -8,9 +8,14 @@ module.exports = {
         id: "num",
         desc: "Random fact about numbers!",
     },
-    fact: {
-        id: "fact",
-        id2: "facts",
+    fact1: {
+        id: "fact1",
+        id2: "facts1",
+        desc: "Random fact about anything!",
+    },
+    fact2: {
+        id: "fact2",
+        id2: "facts2",
         desc: "Random fact about anything!",
     },
     today: {

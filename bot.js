@@ -10,17 +10,20 @@ const client = new Discord.Client();
 const BOT_PREFIX = '!'
 const BOT_COMMANDS = list_Commands.commands.id
 const NUM_FACT = list_Commands.num_fact.id
-const FACT = [list_Commands.fact.id,list_Commands.fact.id2]
+const FACT1 = [list_Commands.fact1.id,list_Commands.fact1.id2]
+const FACT2 = [list_Commands.fact2.id,list_Commands.fact2.id2]
 const TODAY = list_Commands.today.id
 const WAN = list_Commands.wan.id
 const RAHUL = list_Commands.rahul.id
 
-const FACT_API = 'https://uselessfacts.jsph.pl/random.json?language=en'
+const FACT1_API = 'https://uselessfacts.jsph.pl/random.json?language=en'
+const FACT2_API = 'https://useless-facts.sameerkumar.website/api'
 const TODAY_FACT_API = 'https://uselessfacts.jsph.pl/today.json?language=en'
 const N_FACT_API = 'http://numbersapi.com/random/trivia'
 
 var today;
-var facts = [];
+var facts1 = [];
+var facts2 = [];
 var n_facts = [];
 
 var currentTime = new Date().toLocaleTimeString();
@@ -42,15 +45,29 @@ function getToday(){
 }
 
 function getFacts(){
-    fetch(FACT_API).then(
+    fetch(FACT1_API).then(
         function(response){
             if(response.status !== 200){
                 console.log("There was a problem. Status Code: " + response.status);
                 return;
             }
             response.json().then(function(data){
-                let fact = data;
-                facts.push(fact.text);
+                let fact1 = data;
+                facts1.push(fact1.text);
+            })
+        }
+    ).catch(function(err){
+        console.log('error: ', err);
+    })
+    fetch(FACT2_API).then(
+        function(response){
+            if(response.status !== 200){
+                console.log("There was a problem. Status Code: " + response.status);
+                return;
+            }
+            response.json().then(function(data){
+                let fact2 = data;
+                facts2.push(fact2.text);
             })
         }
     ).catch(function(err){
@@ -82,10 +99,10 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-    if(msg.content === `${BOT_PREFIX}${FACT[0]}` || msg.content === `${BOT_PREFIX}${FACT[1]}`){
-        msg.channel.send("Random Fact: " + facts).then(msg => 
+    if(msg.content === `${BOT_PREFIX}${FACT1[0]}` || msg.content === `${BOT_PREFIX}${FACT1[1]}`){
+        msg.channel.send("Random Fact: " + facts1).then(msg => 
             msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
-        facts.pop();
+        facts1.pop();
         getFacts();
     };
 })
@@ -125,7 +142,7 @@ client.on('message', msg =>{
         .setColor(0xff0000)
         .setDescription(`
         Prefix: ${BOT_PREFIX}
-        \`${FACT}\` : ${list_Commands.fact.desc}
+        \`${FACT1}\` : ${list_Commands.fact1.desc}
         \`${NUM_FACT}\` : ${list_Commands.num_fact.desc}
         \`${TODAY}\` : ${list_Commands.today.desc}
         \`${WAN}\` : ${list_Commands.wan.desc}
