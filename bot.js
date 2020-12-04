@@ -129,7 +129,7 @@ client.on('ready', () => {
 
 client.on('message', msg => {
     if(msg.content === `${BOT_PREFIX}${fact1.id}` || msg.content === `${BOT_PREFIX}${fact1.id2}`){
-        msg.channel.send("Random Fact: " + fact1.id).then(msg => 
+        msg.channel.send("Random Fact: " + facts1).then(msg => 
             msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
         facts1.pop();
         getFacts();
