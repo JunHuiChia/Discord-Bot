@@ -7,7 +7,7 @@ const fetch = require("node-fetch");
 const client = new Discord.Client();
 
 const BOT_PREFIX = '!'
-const { commands, num_fact, fact1, fact2, today, joke, wan, rahul } = list_Commands
+const { commands, num_fact, fact1, fact2, todayD, joke, wan, rahul } = list_Commands
 
 const FACT1_API = 'https://uselessfacts.jsph.pl/random.json?language=en'
 const FACT2_API = 'https://useless-facts.sameerkumar.website/api'
@@ -146,7 +146,7 @@ client.on('message', msg => {
 })
 
 client.on('message', msg => {
-    if(msg.content === `${BOT_PREFIX}${today.id}`){
+    if(msg.content === `${BOT_PREFIX}${todayD.id}`){
         msg.channel.send("RFOTD: " + today).then(msg => 
             msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
     };
@@ -198,7 +198,7 @@ client.on('message', msg =>{
         \`${fact1.id}\` : ${fact1.desc}
         \`${fact2.id}\` : ${fact2.desc}
         \`${num_fact.id}\` : ${num_fact.desc}
-        \`${today.id}\` : ${today.desc}
+        \`${todayD.id}\` : ${todayD.desc}
         \`${wan.id}\` : ${wan.desc}
         \`${rahul.id}\` : ${rahul.desc}
         \`${joke.id}\` : ${joke.desc}

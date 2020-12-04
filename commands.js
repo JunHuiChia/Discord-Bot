@@ -18,7 +18,7 @@ module.exports = {
         id2: "facts2",
         desc: "Random fact about anything!",
     },
-    today: {
+    todayD: {
         id: "today",
         desc: "Random fact of the day!",
     },
