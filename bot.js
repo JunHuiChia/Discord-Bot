@@ -4,19 +4,10 @@ const {list_Commands} = require("./commands");
 const { time } = require('console');
 const Discord = require('discord.js');
 const fetch = require("node-fetch");
-const cron = require('cron');
 const client = new Discord.Client();
 
 const BOT_PREFIX = '!'
-const { commands } = list_Commands
-const BOT_COMMANDS = list_Commands.commands.id
-const NUM_FACT = list_Commands.num_fact.id
-const FACT1 = [list_Commands.fact1.id,list_Commands.fact1.id2]
-const FACT2 = [list_Commands.fact2.id,list_Commands.fact2.id2]
-const TODAY = list_Commands.today.id
-const JOKE = list_Commands.joke.id
-const WAN = list_Commands.wan.id
-const RAHUL = list_Commands.rahul.id
+const { commands, num_fact, fact1, fact2, today, joke, wan, rahul } = list_Commands
 
 const FACT1_API = 'https://uselessfacts.jsph.pl/random.json?language=en'
 const FACT2_API = 'https://useless-facts.sameerkumar.website/api'
@@ -137,8 +128,8 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-    if(msg.content === `${BOT_PREFIX}${FACT1[0]}` || msg.content === `${BOT_PREFIX}${FACT1[1]}`){
-        msg.channel.send("Random Fact: " + facts1).then(msg => 
+    if(msg.content === `${BOT_PREFIX}${fact1.id}` || msg.content === `${BOT_PREFIX}${fact1.id2}`){
+        msg.channel.send("Random Fact: " + fact1.id).then(msg => 
             msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
         facts1.pop();
         getFacts();
@@ -146,7 +137,7 @@ client.on('message', msg => {
 })
 
 client.on('message', msg => {
-    if(msg.content === `${BOT_PREFIX}${FACT2[0]}` || msg.content === `${BOT_PREFIX}${FACT2[1]}`){
+    if(msg.content === `${BOT_PREFIX}${fact2.id}` || msg.content === `${BOT_PREFIX}${fact2.id2}`){
         msg.channel.send("Random Fact: " + facts2).then(msg => 
             msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
         facts2.pop();
@@ -155,14 +146,14 @@ client.on('message', msg => {
 })
 
 client.on('message', msg => {
-    if(msg.content === `${BOT_PREFIX}${TODAY}`){
+    if(msg.content === `${BOT_PREFIX}${today.id}`){
         msg.channel.send("RFOTD: " + today).then(msg => 
             msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
     };
 })
 
 client.on('message', msg => {
-    if(msg.content === `${BOT_PREFIX}${NUM_FACT}`){
+    if(msg.content === `${BOT_PREFIX}${num_fact.id}`){
         msg.channel.send("Number Fact: " + n_facts).then(msg => 
             msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
         n_facts.pop();
@@ -171,7 +162,7 @@ client.on('message', msg => {
 })
 
 client.on('message', msg => {
-    if(msg.content === `${BOT_PREFIX}${JOKE}`){
+    if(msg.content === `${BOT_PREFIX}${joke.id}`){
         if(joke2.length == 0){
             msg.channel.send(joke1).then(msg => 
                 msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
@@ -186,13 +177,13 @@ client.on('message', msg => {
 })
 
 client.on('message', msg =>{
-    if(msg.content === `${BOT_PREFIX}${WAN}`){
+    if(msg.content === `${BOT_PREFIX}${wan.id}`){
         msg.member.send("Wan is gay");
     }
 })
 
 client.on('message', msg =>{
-    if(msg.content == `${BOT_PREFIX}${RAHUL}`){
+    if(msg.content == `${BOT_PREFIX}${rahul.id}`){
         msg.member.send("Rahul is a great guy");
     }
 })
@@ -204,13 +195,13 @@ client.on('message', msg =>{
         .setColor(0xff0000)
         .setDescription(`
         Prefix: ${BOT_PREFIX}
-        \`${FACT1}\` : ${list_Commands.fact1.desc}
-        \`${FACT2}\` : ${list_Commands.fact2.desc}
-        \`${NUM_FACT}\` : ${list_Commands.num_fact.desc}
-        \`${TODAY}\` : ${list_Commands.today.desc}
-        \`${WAN}\` : ${list_Commands.wan.desc}
-        \`${RAHUL}\` : ${list_Commands.rahul.desc}
-        \`${JOKE}\` : ${list_Commands.joke.desc}
+        \`${fact1.id}\` : ${fact1.desc}
+        \`${fact2.id}\` : ${fact2.desc}
+        \`${num_fact.id}\` : ${num_fact.desc}
+        \`${today.id}\` : ${today.desc}
+        \`${wan.id}\` : ${wan.desc}
+        \`${rahul.id}\` : ${rahul.desc}
+        \`${joke.id}\` : ${joke.desc}
         `);
     if(msg.content === `${BOT_PREFIX}${commands.id}` && msg.guild.id==="389172899820470272"){
         msg.channel.send(embed)
