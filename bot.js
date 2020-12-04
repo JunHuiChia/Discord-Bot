@@ -8,6 +8,7 @@ const cron = require('cron');
 const client = new Discord.Client();
 
 const BOT_PREFIX = '!'
+const { commands } = list_Commands
 const BOT_COMMANDS = list_Commands.commands.id
 const NUM_FACT = list_Commands.num_fact.id
 const FACT1 = [list_Commands.fact1.id,list_Commands.fact1.id2]
@@ -197,7 +198,7 @@ client.on('message', msg =>{
 })
 
 client.on('message', msg =>{
-    if(msg.content === `${BOT_PREFIX}${BOT_COMMANDS}`){
+    if(msg.content === `${BOT_PREFIX}${commands.id}`){
         const embed = new Discord.MessageEmbed()
         .setTitle('Commands')
         .setColor(0xff0000)
@@ -211,7 +212,7 @@ client.on('message', msg =>{
         \`${RAHUL}\` : ${list_Commands.rahul.desc}
         \`${JOKE}\` : ${list_Commands.joke.desc}
         `);
-    if(msg.content === `${BOT_PREFIX}${BOT_COMMANDS}` && msg.guild.id==="389172899820470272"){
+    if(msg.content === `${BOT_PREFIX}${commands.id}` && msg.guild.id==="389172899820470272"){
         msg.channel.send(embed)
         .then(msg => 
           msg.delete({timeout: 10000}))
