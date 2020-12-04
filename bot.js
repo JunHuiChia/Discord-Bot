@@ -48,8 +48,8 @@ function getFacts(){
                 return;
             }
             response.json().then(function(data){
-                let fact1 = data;
-                facts1.push(fact1.text);
+                let fact_data = data;
+                facts1.push(fact_data.text);
             })
         }
     ).catch(function(err){
@@ -62,8 +62,8 @@ function getFacts(){
                 return;
             }
             response.json().then(function(data){
-                let fact2 = data;
-                facts2.push(fact2.data);
+                let fact_data = data;
+                facts2.push(fact_data.data);
             })
         }
     ).catch(function(err){
