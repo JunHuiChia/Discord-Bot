@@ -16,8 +16,8 @@ const TODAY_FACT_API = 'https://uselessfacts.jsph.pl/today.json?language=en'
 const N_FACT_API = 'http://numbersapi.com/random/trivia'
 
 var today;
-var facts1 = [];
-var facts2 = [];
+var facts1Array = [];
+var facts2Array = [];
 var n_facts = [];
 var joke1 = [];
 var joke2 = [];
@@ -49,7 +49,7 @@ function getFacts(){
             }
             response.json().then(function(data){
                 let fact_data = data;
-                facts1.push(fact_data.text);
+                facts1Array.push(fact_data.text);
             })
         }
     ).catch(function(err){
@@ -63,7 +63,7 @@ function getFacts(){
             }
             response.json().then(function(data){
                 let fact_data2 = data;
-                facts2.push(fact_data2.data);
+                facts2Array.push(fact_data2.data);
             })
         }
     ).catch(function(err){
@@ -129,18 +129,18 @@ client.on('ready', () => {
 
 client.on('message', msg => {
     if(msg.content === `${BOT_PREFIX}${fact1.id}` || msg.content === `${BOT_PREFIX}${fact1.id2}`){
-        msg.channel.send("Random Fact: " + facts1).then(msg => 
+        msg.channel.send("Random Fact: " + facts1Array).then(msg => 
             msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
-        facts1.pop();
+        facts1Array.pop();
         getFacts();
     };
 })
 
 client.on('message', msg => {
     if(msg.content === `${BOT_PREFIX}${fact2.id}` || msg.content === `${BOT_PREFIX}${fact2.id2}`){
-        msg.channel.send("Random Fact: " + facts2).then(msg => 
+        msg.channel.send("Random Fact: " + facts2Array).then(msg => 
             msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
-        facts2.pop();
+        facts2Array.pop();
         getFacts();
     };
 })
