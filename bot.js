@@ -40,7 +40,7 @@ function getToday(){
     })
 }
 
-function getFacts(){
+function getFacts1(){
     fetch(FACT1_API).then(
         function(response){
             if(response.status !== 200){
@@ -55,6 +55,8 @@ function getFacts(){
     ).catch(function(err){
         console.log('error: ', err);
     })
+}
+function getFacts2(){
     fetch(FACT2_API).then(
         function(response){
             if(response.status !== 200){
@@ -121,10 +123,12 @@ function getNumFacts(){
 
 client.on('ready', () => {
     console.log("BOT IS READY!!")
-    getFacts();
+    getFacts1();
+    getFacts2();
     getNumFacts();
     getToday();
     getJoke();
+
 });
 
 client.on('message', msg => {
@@ -132,7 +136,7 @@ client.on('message', msg => {
         msg.channel.send("Random Fact: " + facts1Array).then(msg => 
             msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
         facts1Array.pop();
-        getFacts();
+        getFacts1();
     };
 })
 
@@ -141,7 +145,7 @@ client.on('message', msg => {
         msg.channel.send("Random Fact: " + facts2Array).then(msg => 
             msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
         facts2Array.pop();
-        getFacts();
+        getFacts2();
     };
 })
 
