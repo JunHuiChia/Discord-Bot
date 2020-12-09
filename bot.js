@@ -121,6 +121,16 @@ function getNumFacts(){
     })
 }
 
+function setStatus(){
+    bot.user.setPresence({
+        status: 'online',
+        activity: {
+            name: '!f_commands',
+            type: 'WATCHING',
+        }
+    })
+}
+
 client.on('ready', () => {
     console.log("BOT IS READY!!")
     getFacts1();
@@ -128,6 +138,7 @@ client.on('ready', () => {
     getNumFacts();
     getToday();
     getJoke();
+    setStatus();
 
 });
 
