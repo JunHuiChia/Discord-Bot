@@ -122,7 +122,7 @@ function getNumFacts(){
 }
 
 function setStatus(){
-    bot.user.setPresence({
+    client.user.setPresence({
         status: 'online',
         activity: {
             name: '!f_commands',
