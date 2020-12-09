@@ -6,7 +6,7 @@ const Discord = require('discord.js');
 const fetch = require("node-fetch");
 const client = new Discord.Client();
 
-const BOT_PREFIX = '!'
+const BOT_PREFIX = '$'
 const { commands, num_fact, fact1, fact2, todayD, joke, wan, rahul } = list_Commands
 
 const FACT1_API = 'https://uselessfacts.jsph.pl/random.json?language=en'
@@ -22,7 +22,6 @@ var n_facts = [];
 var joke1 = [];
 var joke2 = [];
 
-var currentTime = new Date().toLocaleTimeString();
 
 function getToday(){
     fetch(TODAY_FACT_API).then(
@@ -142,7 +141,7 @@ client.on('ready', () => {
 
 });
 
-client.on('message', msg => {
+client.on('message', msg => { //fact1 
     if(msg.content === `${BOT_PREFIX}${fact1.id}` || msg.content === `${BOT_PREFIX}${fact1.id2}`){
         msg.channel.send("Random Fact: " + facts1Array).then(msg => 
             msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
@@ -151,7 +150,7 @@ client.on('message', msg => {
     };
 })
 
-client.on('message', msg => {
+client.on('message', msg => { //fact2
     if(msg.content === `${BOT_PREFIX}${fact2.id}` || msg.content === `${BOT_PREFIX}${fact2.id2}`){
         msg.channel.send("Random Fact: " + facts2Array).then(msg => 
             msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
@@ -160,14 +159,14 @@ client.on('message', msg => {
     };
 })
 
-client.on('message', msg => {
+client.on('message', msg => { //today
     if(msg.content === `${BOT_PREFIX}${todayD.id}`){
         msg.channel.send("RFOTD: " + today).then(msg => 
             msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
     };
 })
 
-client.on('message', msg => {
+client.on('message', msg => { //num
     if(msg.content === `${BOT_PREFIX}${num_fact.id}`){
         msg.channel.send("Number Fact: " + n_facts).then(msg => 
             msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
@@ -176,7 +175,7 @@ client.on('message', msg => {
     };
 })
 
-client.on('message', msg => {
+client.on('message', msg => { //joke
     if(msg.content === `${BOT_PREFIX}${joke.id}`){
         if(joke2.length == 0){
             msg.channel.send(joke1).then(msg => 
@@ -191,19 +190,19 @@ client.on('message', msg => {
     };
 })
 
-client.on('message', msg =>{
+client.on('message', msg =>{ //wan
     if(msg.content === `${BOT_PREFIX}${wan.id}`){
         msg.member.send("Wan is gay");
     }
 })
 
-client.on('message', msg =>{
+client.on('message', msg =>{ //rahul
     if(msg.content == `${BOT_PREFIX}${rahul.id}`){
         msg.member.send("Rahul is a great guy");
     }
 })
 
-client.on('message', msg =>{
+client.on('message', msg =>{ //commands - should clean up abit
     if(msg.content === `${BOT_PREFIX}${commands.id}`){
         const embed = new Discord.MessageEmbed()
         .setTitle('Commands')
@@ -232,8 +231,9 @@ client.on('message', msg =>{
 })
 
 
-client.on('message', msg =>{
+client.on('message', msg =>{ //time, has no use.
     if(msg.content == '!time'){
+        var currentTime = new Date().toLocaleTimeString();
         msg.channel.send(currentTime);
         client.channels.send
     }

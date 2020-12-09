@@ -1,7 +1,7 @@
 module.exports = {
     list_Commands: {
     commands:{
-        id: "f_commands",
+        id: "commands",
         desc: "Displays a list of commands"
     },
     num_fact: {
