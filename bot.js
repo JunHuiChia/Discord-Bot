@@ -126,7 +126,7 @@ function setStatus(){
         status: 'online',
         activity: {
             name: '!f_commands',
-            type: 'WATCHING',
+            type: 'PLAYING',
         }
     })
 }
