@@ -125,7 +125,7 @@ function setStatus(){
     client.user.setPresence({
         status: 'online',
         activity: {
-            name: '!f_commands',
+            name: `${BOT_PREFIX}${commands}`,
             type: 'PLAYING',
         }
     })
