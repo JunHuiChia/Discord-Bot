@@ -141,7 +141,6 @@ function getMeme(){
             }
             response.json().then(function(data){
                 meme_img = data.url;
-                console.log(meme_img);
             })
         }
     ).catch(function(err){
