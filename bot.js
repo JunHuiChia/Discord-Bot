@@ -161,15 +161,14 @@ client.on('ready', () => {
 });
 
 function sendMessage(user_command,preMessage,infoStored,){
-    client.on('message', msg=> {
         if(msg.content === `${BOT_PREFIX}${user_command}`){
             msg.channel.send(preMessage + infoStored).then(msg => 
                 msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
         }
-    })
+    
 }
 
-client.on('message', () => { //fact1 
+client.on('message', msg => { //fact1 
         sendMessage(fact1.id,"Random Fact: ",facts1Array);
         facts1Array.pop();
         getFacts1();
