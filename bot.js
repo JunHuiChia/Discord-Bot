@@ -160,10 +160,17 @@ client.on('ready', () => {
 
 });
 
-client.on('message', msg => { //fact1 
-    if(msg.content === `${BOT_PREFIX}${fact1.id}` || msg.content === `${BOT_PREFIX}${fact1.id2}`){
-        msg.channel.send("Random Fact: " + facts1Array).then(msg => 
-            msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
+function sendMessage(user_command,preMessage,infoStored,){
+    client.on('message', msg=> {
+        if(msg.content === `${BOT_PREFIX}${user_command}`){
+            msg.channel.send(preMessage + infoStored).then(msg => 
+                msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
+        }
+    })
+}
+
+client.on('message', () => { //fact1 
+        sendMessage(fact1.id,"Random Fact: ",facts1Array);
         facts1Array.pop();
         getFacts1();
     };
