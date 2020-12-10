@@ -133,7 +133,7 @@ function setStatus(){
 }
 
 function getMeme(){
-    fetch(N_FACT_API).then(
+    fetch(MEME_API).then(
         function(response){
             if(response.status !== 200){
                 console.log("There was a problem. Status Code: " + response.status);
