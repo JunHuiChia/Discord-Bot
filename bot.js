@@ -173,7 +173,6 @@ client.on('message', () => { //fact1
         sendMessage(fact1.id,"Random Fact: ",facts1Array);
         facts1Array.pop();
         getFacts1();
-    };
 })
 
 client.on('message', msg => { //fact2
