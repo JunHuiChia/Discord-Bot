@@ -236,6 +236,7 @@ client.on('message', msg =>{ //commands - should clean up abit
         \`${wan.id}\` : ${wan.desc}
         \`${rahul.id}\` : ${rahul.desc}
         \`${joke.id}\` : ${joke.desc}
+        \`${meme.id}\` : ${meme.desc}
         `);
     if(msg.content === `${BOT_PREFIX}${commands.id}` && msg.guild.id==="389172899820470272"){
         msg.channel.send(embed)
