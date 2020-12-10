@@ -14,6 +14,7 @@ const FACT2_API = 'https://useless-facts.sameerkumar.website/api'
 const JOKE_API = 'https://sv443.net/jokeapi/v2/joke/Any'
 const TODAY_FACT_API = 'https://uselessfacts.jsph.pl/today.json?language=en'
 const N_FACT_API = 'http://numbersapi.com/random/trivia'
+const MEME_API = 'https://meme-api.herokuapp.com/gimme'
 
 var today;
 var facts1Array = [];
@@ -21,6 +22,7 @@ var facts2Array = [];
 var n_facts = [];
 var joke1 = [];
 var joke2 = [];
+var meme_img;
 
 
 function getToday(){
@@ -130,6 +132,23 @@ function setStatus(){
     })
 }
 
+function getMeme(){
+    fetch(N_FACT_API).then(
+        function(response){
+            if(response.status !== 200){
+                console.log("There was a problem. Status Code: " + response.status);
+                return;
+            }
+            response.json().then(function(data){
+                meme_img = data.url;
+                console.log(meme_img);
+            })
+        }
+    ).catch(function(err){
+        console.log('error: ', err);
+    })
+}
+
 client.on('ready', () => {
     console.log("BOT IS READY!!")
     getFacts1();
@@ -138,6 +157,7 @@ client.on('ready', () => {
     getToday();
     getJoke();
     setStatus();
+    getMeme();
 
 });
 
@@ -230,6 +250,13 @@ client.on('message', msg =>{ //commands - should clean up abit
     }
 })
 
+client.on('message', msg => {
+    if(msg.content == `${BOT_PREFIX}${meme.id}`){
+        msg.channel.send(meme_img).then(msg => 
+            msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
+        getMeme();
+    }
+})
 
 client.on('message', msg =>{ //time, has no use.
     if(msg.content == '!time'){

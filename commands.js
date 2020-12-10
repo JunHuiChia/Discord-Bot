@@ -34,5 +34,9 @@ module.exports = {
         id: "joke",
         desc: "Ha, A funny joke!",
     },
+    meme: {
+        id: "meme",
+        desc: "A random meme",
+    },
 }
 }
