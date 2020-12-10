@@ -7,7 +7,7 @@ const fetch = require("node-fetch");
 const client = new Discord.Client();
 
 const BOT_PREFIX = '$'
-const { commands, num_fact, fact1, fact2, todayD, joke, wan, rahul } = list_Commands
+const { commands, num_fact, fact1, fact2, todayD, joke, wan, rahul, meme} = list_Commands
 
 const FACT1_API = 'https://uselessfacts.jsph.pl/random.json?language=en'
 const FACT2_API = 'https://useless-facts.sameerkumar.website/api'
