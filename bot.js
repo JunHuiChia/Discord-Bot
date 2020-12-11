@@ -231,7 +231,7 @@ client.on('message', msg =>{ //commands - should clean up abit
         .setTitle('Commands')
         .setColor(0xff0000)
         .setDescription(`
-        Prefix: ${BOT_PREFIX}
+        Prefix: \`${BOT_PREFIX}\`
         \`${fact1.id}\` : ${fact1.desc}
         \`${fact2.id}\` : ${fact2.desc}
         \`${num_fact.id}\` : ${num_fact.desc}
