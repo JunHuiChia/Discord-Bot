@@ -169,7 +169,7 @@ function sendMessage(preMessage,infoStored,msg){
 
 client.on('message', msg => { //fact1 
     //move if msg-content here and keep sending in the other one
-    if(msg.content === `${BOT_PREFIX}${user_command}`){
+    if(msg.content === `${BOT_PREFIX}${fact1.id}`){
         sendMessage("Random Fact: ",facts1Array,msg);
     }
         facts1Array.pop();
