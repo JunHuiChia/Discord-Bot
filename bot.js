@@ -4,6 +4,7 @@ const {list_Commands} = require("./commands");
 const { time } = require('console');
 const Discord = require('discord.js');
 const fetch = require("node-fetch");
+const { send } = require('process');
 const client = new Discord.Client();
 
 const BOT_PREFIX = '$'
@@ -169,17 +170,16 @@ function sendMessage(preMessage,infoStored,msg){
 
 client.on('message', msg => { //fact1 
     //move if msg-content here and keep sending in the other one
-    if(msg.content === `${BOT_PREFIX}${fact1.id}`){
+    if(msg.content === `${BOT_PREFIX}${fact1.id}` || msg.content === `${BOT_PREFIX}${fact1.id2}` ){
         sendMessage("Random Fact: ",facts1Array,msg);
-    }
         facts1Array.pop();
         getFacts1();
+    }
 })
 
 client.on('message', msg => { //fact2
     if(msg.content === `${BOT_PREFIX}${fact2.id}` || msg.content === `${BOT_PREFIX}${fact2.id2}`){
-        msg.channel.send("Random Fact: " + facts2Array).then(msg => 
-            msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
+        sendMessage("Random Fact: ", facts2Array,msg);
         facts2Array.pop();
         getFacts2();
     };
@@ -187,15 +187,13 @@ client.on('message', msg => { //fact2
 
 client.on('message', msg => { //today
     if(msg.content === `${BOT_PREFIX}${todayD.id}`){
-        msg.channel.send("RFOTD: " + today).then(msg => 
-            msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
+        sendMessage("FOTD: ", today,msg);
     };
 })
 
 client.on('message', msg => { //num
     if(msg.content === `${BOT_PREFIX}${num_fact.id}`){
-        msg.channel.send("Number Fact: " + n_facts).then(msg => 
-            msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
+        sendMessage("Number Fact: ",n_facts,msg);
         n_facts.pop();
         getNumFacts();
     };
@@ -204,8 +202,7 @@ client.on('message', msg => { //num
 client.on('message', msg => { //joke
     if(msg.content === `${BOT_PREFIX}${joke.id}`){
         if(joke2.length == 0){
-            msg.channel.send(joke1).then(msg => 
-                msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
+            sendMessage("",joke1,msg);
             getJoke();
         }else{
             msg.channel.send("(1/2) "+joke1+"\n"+"(2/2) "+joke2).then(msg => 
@@ -259,8 +256,7 @@ client.on('message', msg =>{ //commands - should clean up abit
 
 client.on('message', msg => {
     if(msg.content == `${BOT_PREFIX}${meme.id}`){
-        msg.channel.send(meme_img).then(msg => 
-            msg.delete({timeout: 20000})).then(msg.member.lastMessage.delete({timeout: 20000}));
+        sendMessage("",meme_img,msg);
         getMeme();
     }
 })
