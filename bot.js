@@ -322,8 +322,10 @@ client.on('message', (message) => {
 	const command = args.shift().toLowerCase();
 	console.log('args' + args);
 	console.log('args' + command);
-	if (command === 'w' || 'weather') {
+	if (command === 'w' || command === 'weather') {
 		message.reply('It is fucking sunny and 10°C in ' + args);
+	} else {
+		console.log('dont work');
 	}
 });
 
