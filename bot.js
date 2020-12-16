@@ -166,7 +166,7 @@ client.on('ready', () => {
     getJoke();
     setStatus();
     getMeme();
-
+    dailyFact();
 });
 
 function sendMessage(preMessage,infoStored,msg){
