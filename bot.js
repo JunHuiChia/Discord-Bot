@@ -28,11 +28,12 @@ var joke2 = [];
 var meme_img;
 
 function dailyFact(){
-    setTimeout(() => {
-        console.log("daily fact works");
         getToday();
-        client.channels.cache.get("783517368227725364").send(today);
-    }, 5000); //86400000 //24 Hours
+    const fotd = new Discord.MessageEmbed()
+        .setTitle('Fact of the day!')
+        .setColor(0xff0000)
+        .setDescription(`${today}`);
+        client.channels.cache.get("389172900336238613").send(fotd);
 }
 
 function getToday(){
@@ -167,7 +168,7 @@ client.on('ready', () => {
     getJoke();
     setStatus();
     getMeme();
-    setInterval(dailyFact, 5000);
+    setInterval(dailyFact, 10000); //86400000
 });
 
 function sendMessage(preMessage,infoStored,msg){
