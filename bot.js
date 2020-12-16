@@ -307,15 +307,6 @@ client.on('message', (msg) => {
 	}
 });
 
-client.on('message', (msg) => {
-	//time, has no use.
-	if (msg.content == '!time') {
-		var currentTime = new Date().toLocaleTimeString();
-		msg.channel.send(currentTime);
-		client.channels.send;
-	}
-});
-
 client.on('message', (message) => {
 	if (!message.content.startsWith(BOT_PREFIX) || message.author.bot) return;
 	const args = message.content.slice(BOT_PREFIX.length).split(' ');
