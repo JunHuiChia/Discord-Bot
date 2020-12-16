@@ -320,10 +320,9 @@ client.on('message', (message) => {
 	if (!message.content.startsWith(BOT_PREFIX) || message.author.bot) return;
 	const args = message.content.slice(BOT_PREFIX.length).split(' ');
 	const command = args.shift().toLowerCase();
+	let degrees = Math.floor(Math.random() * 100);
 	if (command === 'w' || command === 'weather') {
-		message.reply(
-			`It is fucking sunny and 10°C in \`${args.shift().toUpperCase()}\``
-		);
+		message.reply(`It is fucking sunny and ${degrees}°C in \`${args}\``);
 	} else {
 		console.log('dont work');
 	}
