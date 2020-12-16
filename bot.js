@@ -316,15 +316,14 @@ client.on('message', (msg) => {
 	}
 });
 
-client.on('message', message => {
-    if (!message.content.startsWith(BOT_PREFIX) || message.author.bot) return;
-    const args = message.content.slice(prefix.length).split(' ');
-    const command = args.shift().toLowerCase();
-    console.log(args + command);
-    if (command === 'w' || "weather"){
-        message.reply("It is fucking sunny and 10°C in " + args);
-    }
-
-}
+client.on('message', (message) => {
+	if (!message.content.startsWith(BOT_PREFIX) || message.author.bot) return;
+	const args = message.content.slice(prefix.length).split(' ');
+	const command = args.shift().toLowerCase();
+	console.log(args + command);
+	if (command === 'w' || 'weather') {
+		message.reply('It is fucking sunny and 10°C in ' + args);
+	}
+});
 
 client.login(process.env.BOT_TOKEN);
