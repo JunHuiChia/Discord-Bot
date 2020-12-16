@@ -168,7 +168,7 @@ client.on('ready', () => {
     getJoke();
     setStatus();
     getMeme();
-    setInterval(dailyFact, 10000); //86400000
+    setInterval(dailyFact, 86400000); //86400000
 });
 
 function sendMessage(preMessage,infoStored,msg){
