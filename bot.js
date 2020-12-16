@@ -29,8 +29,9 @@ var meme_img;
 
 function dailyFact(){
     setTimeout(() => {
-        getToday()
-        client.channels.get("389172900336238613").send(today);
+        console.log("daily fact works");
+        getToday();
+        client.channels.cache.get("389172900336238613").send(today);
     }, 5000); //86400000 //24 Hours
 }
 
