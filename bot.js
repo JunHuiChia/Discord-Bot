@@ -31,7 +31,7 @@ function dailyFact(){
     setTimeout(() => {
         console.log("daily fact works");
         getToday();
-        client.channels.cache.get("389172900336238613").send(today);
+        client.channels.cache.get("783517368227725364").send(today);
     }, 5000); //86400000 //24 Hours
 }
 
@@ -167,11 +167,7 @@ client.on('ready', () => {
     getJoke();
     setStatus();
     getMeme();
-    setTimeout(() => {
-        console.log("daily fact works");
-        getToday();
-        client.channels.cache.get("389172900336238613").send(today);
-    }, 5000);
+    setInterval(dailyFact, 5000);
 });
 
 function sendMessage(preMessage,infoStored,msg){
