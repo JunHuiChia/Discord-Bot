@@ -318,7 +318,7 @@ client.on('message', (msg) => {
 
 client.on('message', (message) => {
 	if (!message.content.startsWith(BOT_PREFIX) || message.author.bot) return;
-	const args = message.content.slice(prefix.length).split(' ');
+	const args = message.content.slice(BOT_PREFIX.length).split(' ');
 	const command = args.shift().toLowerCase();
 	console.log(args + command);
 	if (command === 'w' || 'weather') {
