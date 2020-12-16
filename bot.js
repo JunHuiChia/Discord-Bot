@@ -322,7 +322,10 @@ client.on('message', (message) => {
 	const command = args.shift().toLowerCase();
 	let degrees = Math.floor(Math.random() * 100);
 	if (command === 'w' || command === 'weather') {
-		message.reply(`It is fucking sunny and ${degrees}°C in \`${args}\``);
+		message
+			.reply(`It is fucking sunny and ${degrees}°C in \`${args}\``)
+			.then((message) => message.delete({ timeout: 10000 }))
+			.then(message.member.lastMessage.delete({ timeout: 10000 }));
 	} else {
 		console.log('dont work');
 	}
