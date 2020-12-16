@@ -322,7 +322,7 @@ client.on('message', (message) => {
 	const command = args.shift().toLowerCase();
 	if (command === 'w' || command === 'weather') {
 		message.reply(
-			`It is fucking sunny and 10°C in \`${args.shift.toUpperCase()}\``
+			`It is fucking sunny and 10°C in \`${args.shift().toUpperCase()}\``
 		);
 	} else {
 		console.log('dont work');
