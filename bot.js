@@ -167,7 +167,11 @@ client.on('ready', () => {
     getJoke();
     setStatus();
     getMeme();
-    dailyFact();
+    setTimeout(() => {
+        console.log("daily fact works");
+        getToday();
+        client.channels.cache.get("389172900336238613").send(today);
+    }, 5000);
 });
 
 function sendMessage(preMessage,infoStored,msg){
