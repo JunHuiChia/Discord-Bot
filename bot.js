@@ -22,6 +22,33 @@ const {
 	meme,
 } = list_Commands;
 
+const weatherEmbed = (
+	temp,
+	maxTemp,
+	minTemp,
+	feelTemp,
+	humidity,
+	wind,
+	cloudness,
+	icon,
+	author,
+	profile,
+	cityName,
+	country
+) =>
+	new Discord.MessageEmbed()
+		.setColor('#0099ff')
+		.setAuthor(`Hello, ${author}`, profile)
+		.setTitle(`It is ${Math.ceil(temp)}\u00B0 C in ${cityName}, ${country}`)
+		.addField(`Maximum Temperature:`, `${maxTemp}\u00B0 C`, true)
+		.addField(`Minimum Temperature:`, `${minTemp}\u00B0 C`, true)
+		.addField(`Feels like:`, `${feelTemp}\u00B0 C`, true)
+		.addField(`Humidity:`, `${humidity} %`, true)
+		.addField(`Wind Speed:`, `${wind} m/s`, true)
+		.addField(`Cloudiness:`, `${cloudness}`, true)
+		.setThumbnail(`http://openweathermap.org/img/w/${icon}.png`)
+		.setFooter('Made by Jun');
+
 const FACT1_API = 'https://uselessfacts.jsph.pl/random.json?language=en';
 const FACT2_API = 'https://useless-facts.sameerkumar.website/api';
 const JOKE_API = 'https://sv443.net/jokeapi/v2/joke/Any';
@@ -296,23 +323,46 @@ client.on('message', (message) => {
 	if (!message.content.startsWith(BOT_PREFIX) || message.author.bot) return;
 	const args = message.content.slice(BOT_PREFIX.length).split(' ');
 	const command = args.shift().toLowerCase();
-	let degrees = Math.floor(Math.random() * 100);
 	if (command === 'w' || command === 'weather') {
-		var testing = new Discord.MessageEmbed()
-			.setColor('#0099ff')
-			.setAuthor('test')
-			.setTitle('1')
-			.addField('32')
-			.addField('3')
-			.addField('5')
-			.addField('6')
-			.addField('7')
-			.addField('9')
-			.setThumbnail('n/a')
-			.setFooter('Made by');
-		message.reply(testing);
-	} else {
-		console.log('dont work');
+		fetch(
+			`https://api.openweathermap.org/data/2.5/weather?q=${args}&units=metric&appid=${process.env.W_API_KEY}`
+		)
+			.then(function (response) {
+				response.json().then(function (weather_data) {
+					let apiData = weather_data;
+					let currentTemp = apiData.main.temp;
+					let maxTemp = apiData.main.temp_max;
+					let minTemp = apiData.main.temp_min;
+					let feelTemp = apiData.main.feels_like;
+					let humidity = apiData.main.humidity;
+					let wind = apiData.wind.speed;
+					let author = message.author.username;
+					let profile = message.author.displayAvatarURL;
+					let icon = apiData.weather[0].icon;
+					let cityName = args;
+					let country = apiData.sys.country;
+					let cloudness = apiData.weather[0].description;
+					message.channel.send(
+						weatherEmbed(
+							currentTemp,
+							maxTemp,
+							minTemp,
+							feelTemp,
+							humidity,
+							wind,
+							cloudness,
+							icon,
+							author,
+							profile,
+							cityName,
+							country
+						)
+					);
+				});
+			})
+			.catch((err) => {
+				message.reply(`Enter a vailid city name`);
+			});
 	}
 });
 
