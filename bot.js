@@ -343,22 +343,27 @@ client.on('message', (message) => {
 					let cityName = args;
 					let country = apiData.sys.country;
 					let cloudness = apiData.weather[0].description;
-					message.channel.send(
-						weatherEmbed(
-							currentTemp,
-							maxTemp,
-							minTemp,
-							feelTemp,
-							humidity,
-							wind,
-							cloudness,
-							icon,
-							author,
-							profile,
-							cityName,
-							country
+					message.channel
+						.send(
+							weatherEmbed(
+								currentTemp,
+								maxTemp,
+								minTemp,
+								feelTemp,
+								humidity,
+								wind,
+								cloudness,
+								icon,
+								author,
+								profile,
+								cityName,
+								country
+							)
 						)
-					);
+						.then((msg) => msg.delete({ timeout: 600000 }))
+						.then(
+							msg.member.lastMessage.delete({ timeout: 600000 })
+						);
 				})
 				.catch((err) => {
 					message.reply(`Enter a vailid city name`);
