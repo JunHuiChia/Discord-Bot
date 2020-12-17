@@ -201,7 +201,6 @@ function sendMessage(preMessage, infoStored, msg) {
 
 client.on('message', (msg) => {
 	//fact1
-	//move if msg-content here and keep sending in the other one
 	if (
 		msg.content === `${BOT_PREFIX}${fact1.id}` ||
 		msg.content === `${BOT_PREFIX}${fact1.id2}`
@@ -210,11 +209,9 @@ client.on('message', (msg) => {
 		facts1Array.pop();
 		getFacts1();
 	}
-});
 
-client.on('message', (msg) => {
 	//fact2
-	if (
+	else if (
 		msg.content === `${BOT_PREFIX}${fact2.id}` ||
 		msg.content === `${BOT_PREFIX}${fact2.id2}`
 	) {
@@ -222,27 +219,21 @@ client.on('message', (msg) => {
 		facts2Array.pop();
 		getFacts2();
 	}
-});
 
-client.on('message', (msg) => {
 	//today
-	if (msg.content === `${BOT_PREFIX}${todayD.id}`) {
+	else if (msg.content === `${BOT_PREFIX}${todayD.id}`) {
 		sendMessage('FOTD: ', today, msg);
 	}
-});
 
-client.on('message', (msg) => {
 	//num
-	if (msg.content === `${BOT_PREFIX}${num_fact.id}`) {
+	else if (msg.content === `${BOT_PREFIX}${num_fact.id}`) {
 		sendMessage('Number Fact: ', n_facts, msg);
 		n_facts.pop();
 		getNumFacts();
 	}
-});
 
-client.on('message', (msg) => {
 	//joke
-	if (msg.content === `${BOT_PREFIX}${joke.id}`) {
+	else if (msg.content === `${BOT_PREFIX}${joke.id}`) {
 		if (joke2.length == 0) {
 			sendMessage('', joke1, msg);
 			getJoke();
@@ -254,25 +245,19 @@ client.on('message', (msg) => {
 			getJoke();
 		}
 	}
-});
 
-client.on('message', (msg) => {
 	//wan
-	if (msg.content === `${BOT_PREFIX}${wan.id}`) {
-		msg.member.send('Wan is gay');
+	else if (msg.content === `${BOT_PREFIX}${wan.id}`) {
+		msg.member.send('Wan sucks');
 	}
-});
 
-client.on('message', (msg) => {
 	//rahul
-	if (msg.content == `${BOT_PREFIX}${rahul.id}`) {
+	else if (msg.content == `${BOT_PREFIX}${rahul.id}`) {
 		msg.member.send('Rahul is a great guy');
 	}
-});
 
-client.on('message', (msg) => {
 	//commands - should clean up abit
-	if (msg.content === `${BOT_PREFIX}${commands.id}`) {
+	else if (msg.content === `${BOT_PREFIX}${commands.id}`) {
 		const embed = new Discord.MessageEmbed()
 			.setTitle('Commands')
 			.setColor(0xff0000).setDescription(`
@@ -298,15 +283,15 @@ client.on('message', (msg) => {
 			msg.channel.send(embed);
 		}
 	}
-});
 
-client.on('message', (msg) => {
-	if (msg.content == `${BOT_PREFIX}${meme.id}`) {
+	//memes
+	else if (msg.content == `${BOT_PREFIX}${meme.id}`) {
 		sendMessage('', meme_img, msg);
 		getMeme();
 	}
 });
 
+//Weather
 client.on('message', (message) => {
 	if (!message.content.startsWith(BOT_PREFIX) || message.author.bot) return;
 	const args = message.content.slice(BOT_PREFIX.length).split(' ');
