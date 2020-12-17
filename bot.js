@@ -20,6 +20,7 @@ const {
 	wan,
 	rahul,
 	meme,
+	weather,
 } = list_Commands;
 
 const weatherEmbed = (
@@ -297,6 +298,8 @@ client.on('message', (msg) => {
         \`${rahul.id}\` : ${rahul.desc}
         \`${joke.id}\` : ${joke.desc}
         \`${meme.id}\` : ${meme.desc}
+        \`${weather.id} <City Name>\` : ${weather.desc}
+        \`${weather.id2} <City Name>\` : ${weather.desc}
         `);
 		if (
 			msg.content === `${BOT_PREFIX}${commands.id}` &&
