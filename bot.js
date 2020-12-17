@@ -298,7 +298,7 @@ client.on('message', (message) => {
 	const command = args.shift().toLowerCase();
 	let degrees = Math.floor(Math.random() * 100);
 	if (command === 'w' || command === 'weather') {
-		var testing = new Discord.RichEmbed()
+		var testing = new Discord.MessageEmbed()
 			.setColor('#0099ff')
 			.setAuthor('test')
 			.setTitle('1')
