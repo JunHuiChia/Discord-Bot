@@ -326,10 +326,9 @@ client.on('message', (message) => {
 	if (command === 'w' || command === 'weather') {
 		fetch(
 			`https://api.openweathermap.org/data/2.5/weather?q=${args}&units=metric&appid=${process.env.W_API_KEY}`
-		).then(function (response) {
-			response
-				.json()
-				.then(function (weather_data) {
+		)
+			.then(function (response) {
+				response.json().then(function (weather_data) {
 					let apiData = weather_data;
 					let currentTemp = apiData.main.temp;
 					let maxTemp = apiData.main.temp_max;
@@ -364,11 +363,11 @@ client.on('message', (message) => {
 						.then(
 							msg.member.lastMessage.delete({ timeout: 600000 })
 						);
-				})
-				.catch((err) => {
-					message.reply(`Enter a vailid city name`);
 				});
-		});
+			})
+			.catch((err) => {
+				message.reply(`Enter a vailid city name`);
+			});
 	}
 });
 
