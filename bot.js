@@ -298,10 +298,19 @@ client.on('message', (message) => {
 	const command = args.shift().toLowerCase();
 	let degrees = Math.floor(Math.random() * 100);
 	if (command === 'w' || command === 'weather') {
-		message
-			.reply(`It is fucking sunny and ${degrees}°C in \`${args}\``)
-			.then((message) => message.delete({ timeout: 10000 }))
-			.then(message.member.lastMessage.delete({ timeout: 10000 }));
+		var testing = new Discord.RichEmbed()
+			.setColor('#0099ff')
+			.setAuthor('test')
+			.setTitle('1')
+			.addField('32')
+			.addField('3')
+			.addField('5')
+			.addField('6')
+			.addField('7')
+			.addField('9')
+			.setThumbnail('n/a')
+			.setFooter('Made by');
+		message.reply(testing);
 	} else {
 		console.log('dont work');
 	}
