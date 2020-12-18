@@ -362,9 +362,11 @@ client.on('message', (message) => {
 								country
 							)
 						)
-						.then((msg) => msg.delete({ timeout: 600000 }))
+						.then((message) => message.delete({ timeout: 600000 }))
 						.then(
-							msg.member.lastMessage.delete({ timeout: 600000 })
+							message.member.lastMessage.delete({
+								timeout: 600000,
+							})
 						);
 				});
 			})
